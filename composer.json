@@ -1,0 +1,21 @@
+{
+    "name" : "net-tools/js-doc-php",
+	
+    "description" : "Javascript parser and documentation PHP generator",
+	
+	"type": "library",
+	
+	"require" : {
+	},
+	
+    "license" : "MIT",
+
+    "authors": [
+        {
+            "name": "Pierre",
+            "email": "dev@net-tools.ovh",
+            "role": "Developer"
+        }
+    ]
+
+}
