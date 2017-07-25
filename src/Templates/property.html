@@ -1,0 +1,13 @@
+{% import "macros.twig" as macros %}
+
+<div class="groupItemOverview">
+    <span class="type">{{ macros.typelink(prop.type, classmap) }}</span>
+    <div>{% spaceless %}
+        {% if attribute(prop, 'staticProperty') is defined %}{% if prop.staticProperty %}<span class="staticProperty">static</span>{% endif %}{% endif %}
+        <span class="name">{{ prop.name }}</span>
+        {% endspaceless %}<span class="shortDescription">{{ prop.shortDescription }}</span>
+        {% if prop.description %}
+            <p class="description">{{ prop.description }}</p>
+        {% endif %}
+    </div>
+</div>

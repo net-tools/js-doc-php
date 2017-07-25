@@ -1,0 +1,22 @@
+{% import "macros.twig" as macros %}
+
+<div class="groupItemOverview"> 
+    <span class="type">{% if fun.returnValue %}{{macros.typelink(fun.returnValue.type, classmap)}}{% endif %}</span>
+    <div>{% spaceless %}
+        {% if attribute(fun, 'prototypeMethod') is defined %}{% if fun.prototypeMethod %}<span class="prototypeMethod">prototype</span>{% endif %}{% endif %}
+        {% if attribute(fun, 'staticMethod') is defined %}{% if fun.staticMethod %}<span class="staticMethod">static</span>{% endif %}{% endif %}
+        <span class="name">{{ macros.anchor(fun.name, fun.name) }}</span>
+        {% endspaceless %} (
+
+    {% set params = [] %}
+    {% for p in fun.parameters %}
+        {% set params = params|merge(["<span class='type'>" ~ macros.typelink(p.type, classmap) ~ "</span> <span class='name'>" ~ p.name ~ "</span>"]) %}
+    
+    {% endfor %}
+
+    {% autoescape false %}{{ params|join(', ') }}{% endautoescape %}
+   
+    )
+    <p class="shortDescription">{{ fun.shortDescription }}</p>
+    </div>
+</div>

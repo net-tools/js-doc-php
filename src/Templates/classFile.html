@@ -1,0 +1,82 @@
+{% import "macros.twig" as macros %}
+
+
+<html>
+<head>
+    <link rel=stylesheet href="styles.css">
+</head>
+
+<body>
+<h1><span class="picto picto_aclass">{{ theclass.name }}</span> <span class="from">(from package {{ macros.packageLink(theclass.parent.name) }})</span></h1>
+
+{% if theclass.extendsClass %}
+    <div class="extends"><span class="extendsClass">extends</span> {{ theclass.extendsClass.name }}</div>
+{% endif %}
+
+<div class="descriptions">
+    <p class="shortDescription">{{ theclass.shortDescription }}</p>
+    <p class="description">{{ theclass.description }}</p>
+</div>
+
+{% if theclass.constructorParameters|length %}
+    <div class="group constructor">
+        <h3>Constructor</h3>
+        <ul>
+            <li>{{ include('constructor.html') }}</li>
+        </ul>
+    </div>
+{% endif %}
+
+
+{% if theclass.properties|length %}
+    <div class="group properties">
+        <h3>Properties</h3>
+        <ul>
+            {% for prop in theclass.properties %}
+                <li>{{ include('property.html') }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+
+{% if theclass.methods|length %}
+    <div class="group methods">
+        <h3>Methods</h3>
+        <ul>
+            {% for fun in theclass.methods %}
+                <li>{{ include('function.html') }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+
+
+{% if theclass.constructorParameters|length or theclass.methods|length %}
+    <h2>Details</h2>
+
+    {% if theclass.constructorParameters|length %}
+        <div class="group constructor">
+            <h3>Constructor</h3>
+            <ul>
+                <li>{{ include('constructorDetails.html') }}</li>
+            </ul>
+        </div>
+    {% endif %}
+
+
+    {% if theclass.methods|length %}
+        <div class="group methods details_section">
+            <h3>Methods</h3>
+            <ul>
+                {% for fun in theclass.methods %}
+                    <li>{{ include('functionDetails.html') }}</li>
+                {% endfor %}
+            </ul>
+        </div
+    {% endif %}
+{% endif %}
+
+</body>
+</html>

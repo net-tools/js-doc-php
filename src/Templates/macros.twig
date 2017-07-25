@@ -1,0 +1,54 @@
+{% macro anchor(title, name) %}<a href="#{{ name }}">{{ title }}</a>{% endmacro %}
+
+
+
+{% macro typelink(type, classmap) %}{% spaceless %}
+
+    {% if attribute(classmap, type) is defined %}
+        {% import _self as macros %}
+        {{ macros.classLink(type) }}
+    {% else %}
+        {{ type }}
+    {% endif %}
+
+{% endspaceless %}{% endmacro %}
+
+
+
+{% macro namespaceLink(ns, iframe) %}{% spaceless %}
+    {% if iframe %}
+        <a href="ns-{{ ns|e('html') }}.html" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ ns }}</a>
+    {% else %}
+        <a href="ns-{{ ns }}.html" class="outsideLink">{{ ns }}</a>
+    {% endif %}
+{% endspaceless %}{% endmacro %}
+
+
+
+{% macro classLink(class, iframe) %}{% spaceless %}
+    {% if iframe %}
+        <a href="class-{{ class|e('html') }}.html" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ class }}</a>
+    {% else %}
+        <a href="class-{{ class }}.html" class="outsideLink">{{ class }}</a>
+    {% endif %}
+{% endspaceless %}{% endmacro %}
+
+
+
+{% macro packageLink(package, iframe) %}{% spaceless %}
+    {% if iframe %}
+        <a href="{{ package|replace({'/':'--'})|e('html') }}.html" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ package }}</a>
+    {% else %}
+        <a href="{{ package|replace({'/':'--'}) }}.html" class="outsideLink">{{ package }}</a>
+    {% endif %}
+{% endspaceless %}{% endmacro %}
+
+
+
+{% macro packageFunLink(fun, iframe) %}{% spaceless %}
+    {% if iframe %}
+        <a href="{{ fun.parent.name|replace({'/':'--'})|e('html') }}.html#{{ fun.name }}" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ fun.name }}</a>
+    {% else %}
+        <a href="{{ fun.parent.name|replace({'/':'--'}) }}.html#{{ fun.name }}" class="outsideLink">{{ fun.name }}</a>
+    {% endif %}
+{% endspaceless %}{% endmacro %}

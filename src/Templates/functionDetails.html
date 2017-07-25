@@ -1,0 +1,50 @@
+{% import "macros.twig" as macros %}
+
+<a name="{{ fun.name }}"></a>
+<div class="functionDetails"> 
+    <div class="codeline">{% spaceless %}
+        <span class="type">{% if fun.returnValue %}{{macros.typelink(fun.returnValue.type, classmap)}}{% endif %}</span>
+        {% if attribute(fun, 'prototypeMethod') is defined %}{% if fun.prototypeMethod %}<span class="prototypeMethod">prototype</span>{% endif %}{% endif %}
+        {% if attribute(fun, 'staticMethod') is defined %}{% if fun.staticMethod %}<span class="staticMethod">static</span>{% endif %}{% endif %}
+        <span class="name">{{ fun.name }}</span>
+        {% endspaceless %} (
+        
+    {% set params = [] %}
+    {% for p in fun.parameters %}
+        {% set params = params|merge(["<span class='type'>" ~ macros.typelink(p.type, classmap) ~ "</span> <span class='name'>" ~ p.name ~ "</span>"]) %}
+    
+    {% endfor %}
+
+    {% autoescape false %}{{ params|join(', ') }}{% endautoescape %}
+   
+    )</div>
+    <p class="shortDescription">{{ fun.shortDescription }}</p>
+    <p class="description">{{ fun.description }}</p>
+    
+    <div class="details">
+        {% if fun.parameters|length %}
+            <p>Parameters</p>
+            <table class="functionParameters">
+                {% for p in fun.parameters %}
+                    <tr><td class="type">{{ macros.typelink(p.type, classmap) }}</td><td class="name">{{ p.name }}</td><td class="shortDescription">{{ p.shortDescription }}</td></tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        
+        
+        {% if fun.returnValue and fun.returnValue.type != 'void' %}
+            <p>Return value</p>
+            <table class="functionReturnValue">
+                <tr><td class="type">{{ macros.typelink(fun.returnValue.type, classmap) }}</td><td class="shortDescription">{{ fun.returnValue.shortDescription }}</td></tr>
+            </table>
+        {% endif %}
+        
+        
+        {% if fun.throwValue %}
+            <p>Throws</p>
+            <table class="functionThrows">
+                <tr><td class="type">{{ macros.typelink(fun.throwValue.type, classmap) }}</td><td class="shortDescription">{{ fun.throwValue.shortDescription }}</td></tr>
+            </table>
+        {% endif %}
+    </div>
+</div>

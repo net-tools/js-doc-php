@@ -1,0 +1,56 @@
+{% import "macros.twig" as macros %}
+
+
+<html>
+<head>
+    <link rel=stylesheet href="styles.css">
+</head>
+
+<body>
+<h1><span class="picto picto_ans">{{ ns.name }}</span> <span class="from">(from package {{ macros.packageLink(ns.parent.name) }})</span></h1>
+
+<div class="descriptions">
+    <p class="shortDescription">{{ ns.shortDescription }}</p>
+    <p class="description">{{ ns.description }}</p>
+</div>
+
+{% if ns.properties|length %}
+    <div class="group properties">
+        <h3>Properties</h3>
+        <ul>
+            {% for prop in ns.properties %}
+                <li>{{ include('property.html') }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+
+{% if ns.methods|length %}
+    <div class="group methods">
+        <h3>Methods</h3>
+        <ul>
+            {% for fun in ns.methods %}
+                <li>{{ include('function.html') }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+
+
+{% if ns.methods|length %}
+    <h2>Details</h2>
+
+    <div class="group methods details_section">
+        <h3>Methods</h3>
+        <ul>
+            {% for fun in ns.methods %}
+                <li>{{ include('functionDetails.html') }}</li>
+            {% endfor %}
+        </ul>
+    </div
+{% endif %}
+
+</body>
+</html>

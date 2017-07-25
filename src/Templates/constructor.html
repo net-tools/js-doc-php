@@ -1,0 +1,15 @@
+{% import "macros.twig" as macros %}
+
+<div class="groupItemOverview"> 
+    <div><span class="type"></span><span class="name">{{ macros.anchor('constructor', 'constructor') }}</span> (
+
+    {% set params = [] %}
+    {% for p in theclass.constructorParameters %}
+        {% set params = params|merge(["<span class='type'>" ~ macros.typelink(p.type, classmap) ~ "</span> <span class='name'>" ~ p.name ~ "</span>"]) %}
+    
+    {% endfor %}
+
+    {% autoescape false %}{{ params|join(', ') }}{% endautoescape %}
+   
+    )</div>
+</div>

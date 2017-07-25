@@ -1,0 +1,116 @@
+{% import "macros.twig" as macros %}
+
+<html>
+<head>
+    <link rel=stylesheet href="styles.css">
+    <link rel=stylesheet href="awesomplete.css">
+    <script src="awesomplete.min.js"></script>
+    <style>
+        body {
+            display:flex;
+            flex-direction: row;
+            margin:0;
+            padding:0;
+            height: 100vh;
+        }
+        
+    </style>
+    <script>
+        var jsdoc = {
+            
+            open : function(link)
+            {
+                document.querySelector('body section iframe').src = link;
+            },
+            
+            
+            searchSelect : function(e)
+            {
+                // open in iframe
+                jsdoc.open(e.text.value);
+                e.target.value = '';
+            },
+            
+            
+            init : function()
+            {
+                // create list from ULs/LIs tree
+                var _list = [];
+                var lis = document.querySelectorAll('body navigation ul.level1 > li > a');
+                var lisl = lis.length;
+                for ( var i = 0 ; i < lisl ; i++ )
+                    _list.push({label:lis[i].innerHTML, value:lis[i].href});
+
+                
+                var lis = document.querySelectorAll('body navigation ul.level2 > li a');
+                var lisl = lis.length;
+                for ( var i = 0 ; i < lisl ; i++ )
+                    _list.push({label:lis[i].innerHTML, value:lis[i].href});
+                
+                
+                var awesomplete = new Awesomplete(document.querySelector('body navigation input.awesomplete'), {
+                    list : _list,
+                    maxItems:15,
+                    sort : function(a,b){
+                        return ( a < b ) ? -1:1;
+                    }
+                });
+                    
+                document.querySelector('body navigation input.awesomplete').addEventListener('awesomplete-selectcomplete', jsdoc.searchSelect, false);
+                
+                
+                
+                // maybe open file
+                var hash = document.location.hash.substr(1);
+                if ( hash )
+                {
+                    var lis = document.querySelectorAll('body navigation ul.level1 > li > a');
+                    var lisl = lis.length;
+                    for ( var i = 0 ; i < lisl ; i++ ) 
+                        {
+                            //alert(lis[i].innerHTML + ' =? ' + hash);
+                        if ( lis[i].innerHTML == hash )
+                        {
+                            jsdoc.open(lis[i].href);
+                            break;
+                        }
+                        }
+                }
+            }
+        };
+        
+        window.addEventListener('load', jsdoc.init, false);
+        
+    </script>
+</head>
+<body>
+    <navigation>
+        <input type="text" class="awesomplete" placeholder="Search packages & classes">
+
+        <ul class="level1">
+        {% for package in packages %}
+            {% if not package.isEmpty() %}
+                <li class="name type">
+                    {{ macros.packageLink(package.name, 1) }}
+                    <ul class="level2">
+                        {% for class in package.classes %}
+                            <li><span class="name type picto picto_aclass">{{ macros.classLink(class.name, 1) }}</span></li>
+                        {% endfor %}
+
+                        {% for ns in package.namespaces %}
+                            <li><span class="name type picto picto_ans">{{ macros.namespaceLink(ns.name, 1) }}</span></li>
+                        {% endfor %}
+
+                        {% for fun in package.functions %}
+                            <li><span class="name type picto picto_afun">{{ macros.packageFunLink(fun, 1) }}</span></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+        <footer>Generated on {{ "now"|date('Y/m/d H:i:s') }}</footer>
+    </navigation> 
+    <section><iframe></iframe></section>    
+</body>
+</html>

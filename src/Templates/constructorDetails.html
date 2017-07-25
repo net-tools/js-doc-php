@@ -1,0 +1,25 @@
+{% import "macros.twig" as macros %}
+
+<a name="constructor"></a>
+<div class="functionDetails"> 
+    <div class="codeline"><span class="type"></span><span class="name">{{ theclass.name }}</span> (
+
+    {% set params = [] %}
+    {% for p in theclass.constructorParameters %}
+        {% set params = params|merge(["<span class='type'>" ~ macros.typelink(p.type, classmap) ~ "</span> <span class='name'>" ~ p.name ~ "</span>"]) %}
+    
+    {% endfor %}
+
+    {% autoescape false %}{{ params|join(', ') }}{% endautoescape %}
+   
+    )</div>
+    
+    <div class="details">
+        <p>Parameters</p>
+        <table class="functionParameters">
+            {% for p in theclass.constructorParameters %}
+                <tr><td class="type">{{ macros.typelink(p.type, classmap) }}</td><td class="name">{{ p.name }}</td><td class="shortDescription">{{ p.shortDescription }}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
