@@ -28,8 +28,8 @@ if ( $_REQUEST['cmd'] )
             case 'gen_ok': 
                 $package = Controller::process(
                         new Files(rtrim(__DIR__,'/') . '/res/', ['source.js', 'subfolder/simple.js']), 
-                        OUTPUT_FOLDER, 
-                        CACHE_FOLDER, 
+                        K_OUTPUT_FOLDER, 
+                        K_CACHE_FOLDER, 
                         new \Psr\Log\NullLogger(), 
                         ['strict'=>true]
                     );
@@ -43,8 +43,8 @@ if ( $_REQUEST['cmd'] )
             case 'gen_ko':
                 $package = Controller::process(
                         new Files(rtrim(__DIR__,'/') . '/res/', ['source-ko-' . $_REQUEST['file'] . '.js']), 
-                        OUTPUT_FOLDER, 
-                        CACHE_FOLDER, 
+                        K_OUTPUT_FOLDER, 
+                        K_CACHE_FOLDER, 
                         new \Psr\Log\NullLogger(), 
                         ['strict'=>true]
                     );
