@@ -44,11 +44,11 @@ class Grammar {
     {
         // check if child found in grammar
         if ( is_null($c_item = $this->getItem($child)) )
-            throw new \Nettools\JsDocPhp\Exceptions\GrammarException("Docblock item '" . substr(strrchr(get_class($child),'\\'),1) . "' is unknown in grammar.");
+            throw new \Nettools\JsDocPhp\Exceptions\GrammarException("Docblock item '" . substr(strrchr(get_class($child),'\\'),1) . "' is unknown.");
 
         // check if docblock found in grammar
         if ( is_null($d_item = $this->getItem($docblock)) )
-            throw new \Nettools\JsDocPhp\Exceptions\GrammarException("Docblock item '" . substr(strrchr(get_class($docblock),'\\'),1) . "' is unknown in grammar.");
+            throw new \Nettools\JsDocPhp\Exceptions\GrammarException("Docblock item '" . substr(strrchr(get_class($docblock),'\\'),1) . "' is unknown.");
             
         // check if this child is allowed in docblock
         if ( !$d_item->isChildAllowed($c_item) )
