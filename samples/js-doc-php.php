@@ -14,60 +14,63 @@ else
 
 
 // ##### BEFORE RUNNING THIS SAMPLE, OPEN THE consts.php FILE AND UPDATE THE FOLDER PATHS #####
-include "consts.php";
+// THEN UNCOMMENT THE FOLLOWING LINE SO THAT THE const.php COULB BE INCLUDED
+//include "consts.php";
 
 
+if ( !defined('K_OUTPUT_FOLDER') )
+    $output = "<span style=\"font-weight:bold; color:firebrick;\">Please update samples/consts.php file and uncomment the 'include \"consts.php\"' line.</span>";
+else
 
-
-if ( $_REQUEST['cmd'] )
-    try 
-    {
-        switch ( $_REQUEST['cmd'] )
+    if ( $_REQUEST['cmd'] )
+        try 
         {
-            // generate ok with strict mode
-            case 'gen_ok': 
-                $package = Controller::process(
-                        new Files(rtrim(__DIR__,'/') . '/res/', ['source.js', 'subfolder/simple.js']), 
-                        K_OUTPUT_FOLDER, 
-                        K_CACHE_FOLDER, 
-                        new \Psr\Log\NullLogger(), 
-                        ['strict'=>true]
-                    );
+            switch ( $_REQUEST['cmd'] )
+            {
+                // generate ok with strict mode
+                case 'gen_ok': 
+                    $package = Controller::process(
+                            new Files(rtrim(__DIR__,'/') . '/res/', ['source.js', 'subfolder/simple.js']), 
+                            K_OUTPUT_FOLDER, 
+                            K_CACHE_FOLDER, 
+                            new \Psr\Log\NullLogger(), 
+                            ['strict'=>true]
+                        );
 
-                $output = "<a target=\"_blank\" href=\"output/index.html\">View generated doc</a>";
-                break;
-                
-                
-                
-            // samples for errors
-            case 'gen_ko':
-                $package = Controller::process(
-                        new Files(rtrim(__DIR__,'/') . '/res/', ['source-ko-' . $_REQUEST['file'] . '.js']), 
-                        K_OUTPUT_FOLDER, 
-                        K_CACHE_FOLDER, 
-                        new \Psr\Log\NullLogger(), 
-                        ['strict'=>true]
-                    );
+                    $output = "<a target=\"_blank\" href=\"output/index.html\">View generated doc</a>";
+                    break;
 
-                $output = "<a target=\"_blank\" href=\"output/index.html\">View generated doc</a>";
-                break;
-                
-                
-            // unknown command
-            default:
-                $output = "Unknown command";
-                break;
+
+
+                // samples for errors
+                case 'gen_ko':
+                    $package = Controller::process(
+                            new Files(rtrim(__DIR__,'/') . '/res/', ['source-ko-' . $_REQUEST['file'] . '.js']), 
+                            K_OUTPUT_FOLDER, 
+                            K_CACHE_FOLDER, 
+                            new \Psr\Log\NullLogger(), 
+                            ['strict'=>true]
+                        );
+
+                    $output = "<a target=\"_blank\" href=\"output/index.html\">View generated doc</a>";
+                    break;
+
+
+                // unknown command
+                default:
+                    $output = "Unknown command";
+                    break;
+            }
+
         }
-
-    }
-    catch (\Nettools\JsDocPhp\Exceptions\ParserException $e)
-    {
-        $output = $e->getMessage() . "\n" .  $e->getSourcecode() . "\n";
-    }
-    catch (Throwable $e)
-    {
-        $output = $e->getMessage();
-    }    
+        catch (\Nettools\JsDocPhp\Exceptions\ParserException $e)
+        {
+            $output = $e->getMessage() . "\n" .  $e->getSourcecode() . "\n";
+        }
+        catch (Throwable $e)
+        {
+            $output = $e->getMessage();
+        }    
 
 
 ?>
