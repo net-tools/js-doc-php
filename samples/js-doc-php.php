@@ -13,11 +13,9 @@ else
 
 
 
-// ##### SET THIS WITH A ROOT FOLDER FOR DOC OUTPUT #####
-const OUTPUT_FOLDER = __DIR__ . '/output/';
+// ##### BEFORE RUNNING THIS SAMPLE, OPEN THE consts.php FILE AND UPDATE THE FOLDER PATHS #####
+include "consts.php";
 
-// ##### SET THIS WITH A CACHE FOLDER FOR TWIG TEMPLATES #####
-const CACHE_FOLDER = __DIR__ . '/cache/';
 
 
 
