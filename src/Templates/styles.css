@@ -42,6 +42,10 @@ div.group {
     padding-left: 0.5em;
 }
 
+div.packages {
+    border-left-color:gray;
+}
+
 div.functions,
 div.methods{
     border-left-color: silver;
@@ -132,11 +136,6 @@ div.groupItemOverview > div:last-child
     flex-grow: 1;
 }
 
-/*div.groupItemOverview .shortDescription,
-div.groupItemOverview .description {
-    margin-left: 12%;
-}*/
-
 div.properties div.groupItemOverview .name{
     display:inline-block;
     min-width:20%;
@@ -151,14 +150,12 @@ div.properties div.groupItemOverview .description {
 
 
 
-/* short list of properties : flex because shortdescription can be long */
-
-
 
 
 
 
 /* Short list of package classes and namespaces */
+div.projectPackage span.name,
 div.packageClass span.name,
 div.packageNamespace span.name {
     width: 20%;
@@ -167,11 +164,15 @@ div.packageNamespace span.name {
 
 
 
+
+
 /* Detailed list of functions/methods */
 div.details_section h3 + ul > li + li {
     border-top: 0px;
     margin-top: 3em;
 }
+
+
 
 
 
@@ -229,6 +230,8 @@ div.functionDetails div.details table tr + tr td {
 
 
 
+
+
 /* common styles */
 .shortDescription, 
 .description {
@@ -258,8 +261,9 @@ a.outsideLink {
 
 
 
-/* index */
 
+
+/* index */
 navigation {
 	min-width: 16em;
     padding-right: 1em;
@@ -284,15 +288,28 @@ navigation footer {
 	margin-bottom: 0.5em;
 }
 
-navigation > div.awesomplete {
+
+navigation > div.homeSearch {
+    padding:0 0.5em;
+    display:flex;
+    align-items: baseline;
+}
+
+navigation > div.homeSearch > a.home {
+    text-decoration: none;
+    outline: none;
+}
+
+navigation > div.homeSearch > div.awesomplete {
     margin:0.75em;
+    flex-grow: 1;
 } 
 
-navigation > div.awesomplete > div.awesomplete {
+navigation > div.homeSearch > div.awesomplete > div.awesomplete {
     width:100%;
 } 
 
-navigation > div.awesomplete > div.awesomplete input {
+navigation > div.homeSearch > div.awesomplete > div.awesomplete input {
 	width: 100%;
 	border: 1px solid silver;
 	border-radius: 7px;

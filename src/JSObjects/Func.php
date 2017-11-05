@@ -7,7 +7,7 @@ namespace Nettools\JsDocPhp\JSObjects;
 /**
  * Function object
  */
-class Func extends Object {
+class Func extends JSObject {
 
     /**
      * Function parameters
@@ -37,9 +37,9 @@ class Func extends Object {
     /**
      * Associate an object with the function
      *
-     * @param Object $obj
+     * @param JSObject $obj
      */
-    public function takeOwnership(Object $obj)
+    public function takeOwnership(JSObject $obj)
     {
         parent::takeOwnership($obj);
         

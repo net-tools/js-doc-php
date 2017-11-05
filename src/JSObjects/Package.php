@@ -13,7 +13,7 @@ use \Nettools\JsDocPhp\Exceptions\Exception;
 /**
  * Package object (a Javascript file of classes)
  */
-class Package extends Object {
+class Package extends JSObject {
     
     /** 
      * Filename
@@ -65,9 +65,9 @@ class Package extends Object {
     /**
      * Associate an object with the class
      *
-     * @param Object $obj
+     * @param JSObject $obj
      */
-    public function takeOwnership(Object $obj)
+    public function takeOwnership(JSObject $obj)
     {
         parent::takeOwnership($obj);
         

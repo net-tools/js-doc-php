@@ -15,7 +15,7 @@ else
 
 // ##### BEFORE RUNNING THIS SAMPLE, OPEN THE consts.php FILE AND UPDATE THE FOLDER PATHS #####
 // THEN UNCOMMENT THE FOLLOWING LINE SO THAT THE const.php COULB BE INCLUDED
-//include "consts.php";
+include "consts.php";
 
 
 if ( !defined('K_OUTPUT_FOLDER') )

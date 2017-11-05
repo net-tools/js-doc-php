@@ -1,0 +1,24 @@
+{% import "macros.twig" as macros %}
+
+<html>
+<head>
+    <link rel=stylesheet href="styles.css">
+</head>
+
+<body>
+<h1>Project reference</h1>
+
+
+{% if packages|length %}
+    <div class="group packages">
+        <h3>Packages</h3>
+        <ul>
+            {% for package in packages %}
+                <li>{{ include('package.html') }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+</body>
+</html>

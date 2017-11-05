@@ -2,6 +2,7 @@
 
 <html>
 <head>
+    <title>Javascript reference</title>
     <link rel=stylesheet href="styles.css">
     <link rel=stylesheet href="awesomplete.css">
     <script src="awesomplete.min.js"></script>
@@ -85,13 +86,13 @@
 </head>
 <body>
     <navigation>
-        <input type="text" class="awesomplete" placeholder="Search packages & classes">
+        <div class="homeSearch"><a href="index.html" class="home">&#127968;</a> <input type="text" class="awesomplete" placeholder="Search packages & classes"></div>
 
         <ul class="level1">
         {% for package in packages %}
             {% if not package.isEmpty() %}
                 <li class="name type">
-                    {{ macros.packageLink(package.name, 1) }}
+                    {{ macros.packageLink(package, 1) }}
                     <ul class="level2">
                         {% for class in package.classes %}
                             <li><span class="name type picto picto_aclass">{{ macros.classLink(class.name, 1) }}</span></li>
@@ -111,6 +112,6 @@
         </ul>
         <footer>Generated on {{ "now"|date('Y/m/d H:i:s') }}</footer>
     </navigation> 
-    <section><iframe></iframe></section>    
+    <section><iframe src="index_packages.html"></iframe></section>    
 </body>
 </html>

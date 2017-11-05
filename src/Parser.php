@@ -16,14 +16,14 @@ class Parser {
     /**
      * JSdoc keywords  
      */
-    const KEYWORDS = ['@class', '@function', '@method', '@namespace', '@param', '@return', '@extends', '@throws', '@property'];
+    const KEYWORDS = ['@package', '@class', '@function', '@method', '@namespace', '@param', '@return', '@extends', '@throws', '@property'];
     
 
     
     /**
      * Top level keywords (other keywords are single-line)
      */
-    const TOPLEVEL_KEYWORDS = ['@class', '@function', '@method', '@property', '@namespace'];
+    const TOPLEVEL_KEYWORDS = ['@package', '@class', '@function', '@method', '@property', '@namespace'];
     
     
 
@@ -66,9 +66,9 @@ class Parser {
      *
      * For example, methods without a return value are modified with a returnValue property equals to "void"
      *
-     * @param JSObjects\Object $obj
+     * @param JSObjects\JSObject $obj
      */
-    protected function _normalize(JSObjects\Object $doc)
+    protected function _normalize(JSObjects\JSObject $doc)
     {
         // detect function/methods with no return
         if ( $doc instanceof JSObjects\Func )
@@ -84,13 +84,13 @@ class Parser {
     /** 
      * Check grammar
      * 
-     * @param JSObjects\Object $o
-     * @param JSObjects\Object $parent
+     * @param JSObjects\JSObject $o
+     * @param JSObjects\JSObject $parent
      * @param string $doc Current docblock, as a string
      * @return bool Returns True if grammar checking is ok, otherwise an exception is thrown
      * @throws Exceptions\ParserException
      */
-    protected function _checkGrammar(JSObjects\Object $o, JSObjects\Object $parent, $doc)
+    protected function _checkGrammar(JSObjects\JSObject $o, JSObjects\JSObject $parent, $doc)
     {
         try
         {
@@ -132,11 +132,11 @@ class Parser {
     /** 
      * When a property/method is declared outside its parent block (static method/property), find a reference to its parent
      *
-     * @param JSObjects\Object $o Orphaned object 
+     * @param JSObjects\JSObject $o Orphaned object 
      * @param string $class Classname of the object parent
      * @param \Psr\Log\LoggerInterface $log Log interface to log warning in non-strict mode
      */
-    public function findParentClassNamespace(JSObjects\Object $o, $class, \Psr\Log\LoggerInterface $log)
+    public function findParentClassNamespace(JSObjects\JSObject $o, $class, \Psr\Log\LoggerInterface $log)
     {
         // looking for parent class
         foreach ( $this->projectClassesNamespaces as $cl )
@@ -164,7 +164,7 @@ class Parser {
      *
      * @param string $doc
      * @param \Psr\Log\LoggerInterface $log Log interface to log warning in non-strict mode
-     * @return JSObjects\Object
+     * @return JSObjects\JSObject
      * @throws Exceptions\ParserException
      */
     public function parseDocBlock($doc, \Psr\Log\LoggerInterface $log)
@@ -243,8 +243,8 @@ class Parser {
         
         // normalize object
         $this->_normalize($obj);
+
         
-                        
         // returning top-level object documented
         return $obj;
     }
@@ -263,8 +263,7 @@ class Parser {
      */
     public function parse($root, $file, \Psr\Log\LoggerInterface $log)
     {
-        // create package
-        $package = new JSObjects\Package(null, $file);
+        $package = null;
         
         // read file
         $f = file_get_contents($root . $file);
@@ -285,6 +284,30 @@ class Parser {
             $doc = $this->parseDocBlock($docblock, $log);
             if ( !$doc )
                 continue;
+            
+            
+            
+            // if we have a package docblock, this must be the first ; otherwise, this is an error
+            if ( $doc instanceof JSObjects\Package )
+                if ( is_null($package) )
+                {
+                    $package = $doc;
+                    $package->file = $file;
+                    
+                    // no need to go further, a package docblock has no content
+                    continue;
+                }
+                else
+                    throw new Exceptions\ParserException("Package docblock must be the first docblock in source code", $docblock);
+            
+            // if docblock is not a package, create the default package (if no package docblock) 
+            else
+                if ( is_null($package) )
+                {
+                    $package = new JSObjects\Package(null, $file);
+                    $package->file = $file;
+                }
+            
             
             
             // handle classes and functions : the package takes their ownership

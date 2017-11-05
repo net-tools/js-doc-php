@@ -11,7 +11,7 @@ use \Nettools\JsDocPhp\Exceptions\Exception;
 /**
  * Namespace object
  */
-class NamespaceObject extends Object {
+class NamespaceObject extends JSObject {
 
     /**
      * Methods
@@ -34,9 +34,9 @@ class NamespaceObject extends Object {
     /**
      * Associate an object with the namespace
      *
-     * @param Object $obj
+     * @param JSObject $obj
      */
-    public function takeOwnership(Object $obj)
+    public function takeOwnership(JSObject $obj)
     {
         parent::takeOwnership($obj);
         

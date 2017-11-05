@@ -7,7 +7,7 @@ namespace Nettools\JsDocPhp\JSObjects;
 /**
  * Function parameter
  */
-class Parameter extends Object {
+class Parameter extends JSObject {
 
     /**
      * Parameter type

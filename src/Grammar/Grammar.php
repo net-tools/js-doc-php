@@ -19,12 +19,12 @@ class Grammar {
     
     
     /**
-     * Convert a \Nettools\JsDocPhp\JSObjects\Object to a grammar item
+     * Convert a \Nettools\JsDocPhp\JSObjects\JSObject to a grammar item
      * 
-     * @param \Nettools\JsDocPhp\JSObjects\Object $jso
+     * @param \Nettools\JsDocPhp\JSObjects\JSObject $jso
      * @return Item|null
      */
-    public function getItem(\Nettools\JsDocPhp\JSObjects\Object $jso)
+    public function getItem(\Nettools\JsDocPhp\JSObjects\JSObject $jso)
     {
         $itemname = strtolower(substr(strrchr(get_class($jso),'\\'),1));
         return $this->_grammar[$itemname];
@@ -35,12 +35,12 @@ class Grammar {
     /**
      * Check a docblock item against the grammar and its parent docblock
      *
-     * @param \Nettools\JsDocPhp\JSObjects\Object $child
-     * @param \Nettools\JsDocPhp\JSObjects\Object $docblock
+     * @param \Nettools\JsDocPhp\JSObjects\JSObject $child
+     * @param \Nettools\JsDocPhp\JSObjects\JSObject $docblock
      * @return bool Returns true if the checking is good ; if not, an exception is thrown
      * @throws \Nettools\JsDocPhp\Exceptions\GrammarException
      */     
-    public function check(\Nettools\JsDocPhp\JSObjects\Object $child, \Nettools\JsDocPhp\JSObjects\Object $docblock)
+    public function check(\Nettools\JsDocPhp\JSObjects\JSObject $child, \Nettools\JsDocPhp\JSObjects\JSObject $docblock)
     {
         // check if child found in grammar
         if ( is_null($c_item = $this->getItem($child)) )

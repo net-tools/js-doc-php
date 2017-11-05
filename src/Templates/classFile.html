@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<h1><span class="picto picto_aclass">{{ theclass.name }}</span> <span class="from">(from package {{ macros.packageLink(theclass.parent.name) }})</span></h1>
+<h1><span class="picto picto_aclass">{{ theclass.name }}</span> <span class="from">(from package {{ macros.packageLink(theclass.parent) }})</span></h1>
 
 {% if theclass.extendsClass %}
     <div class="extends"><span class="extendsClass">extends</span> {{ theclass.extendsClass.name }}</div>

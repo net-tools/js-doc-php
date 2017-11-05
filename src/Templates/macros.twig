@@ -37,9 +37,9 @@
 
 {% macro packageLink(package, iframe) %}{% spaceless %}
     {% if iframe %}
-        <a href="{{ package|replace({'/':'--'})|e('html') }}.html" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ package }}</a>
+        <a href="{{ package.file|replace({'/':'--'})|e('html') }}.html" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ package.name }}</a>
     {% else %}
-        <a href="{{ package|replace({'/':'--'}) }}.html" class="outsideLink">{{ package }}</a>
+        <a href="{{ package.file|replace({'/':'--'}) }}.html" class="outsideLink">{{ package.name }}</a>
     {% endif %}
 {% endspaceless %}{% endmacro %}
 
@@ -47,8 +47,8 @@
 
 {% macro packageFunLink(fun, iframe) %}{% spaceless %}
     {% if iframe %}
-        <a href="{{ fun.parent.name|replace({'/':'--'})|e('html') }}.html#{{ fun.name }}" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ fun.name }}</a>
+        <a href="{{ fun.parent.file|replace({'/':'--'})|e('html') }}.html#{{ fun.name }}" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ fun.name }}</a>
     {% else %}
-        <a href="{{ fun.parent.name|replace({'/':'--'}) }}.html#{{ fun.name }}" class="outsideLink">{{ fun.name }}</a>
+        <a href="{{ fun.parent.file|replace({'/':'--'}) }}.html#{{ fun.name }}" class="outsideLink">{{ fun.name }}</a>
     {% endif %}
 {% endspaceless %}{% endmacro %}

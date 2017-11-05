@@ -7,7 +7,7 @@ namespace Nettools\JsDocPhp\JSObjects;
 /**
  * Class property 
  */
-class Property extends Object {
+class Property extends JSObject {
     
 
     /**

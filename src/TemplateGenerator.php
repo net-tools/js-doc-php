@@ -80,12 +80,12 @@ class TemplateGenerator {
      *
      * @param \Twig_Environment $twig Twig instance
      * @param JSObjects\Package[] $packages Array of packages to output
-     * @param JSObjects\Object[] $projectClassesNamespaces Array of classes of project (so that we are able to create links)
+     * @param JSObjects\JSObject[] $projectClassesNamespaces Array of classes of project (so that we are able to create links)
      * @param string $output Root directory for output folder
      */
     static protected function _outputFiles(\Twig_Environment $twig, array $packages, array $projectClassesNamespaces, $output)
     {
-        $template_package = $twig->load('package.html');
+        $template_package = $twig->load('packageFile.html');
         $template_class = $twig->load('classFile.html');
         $template_ns = $twig->load('nsFile.html');
         
@@ -114,7 +114,7 @@ class TemplateGenerator {
                     'classmap' => $projectClassesNamespaces
                 ));
             
-            self::_writeToFile($p->name . '.html', $output, $html);
+            self::_writeToFile($p->file . '.html', $output, $html);
 
             
             // output package classes content
@@ -148,18 +148,30 @@ class TemplateGenerator {
      *
      * @param \Twig_Environment $twig Twig instance
      * @param JSObjects\Package[] $packages Array of packages to output
-     * @param JSObjects\Object[] $projectClassesNamespaces Array of classes of project (so that we are able to create links)
+     * @param JSObjects\JSObject[] $projectClassesNamespaces Array of classes of project (so that we are able to create links)
      * @param string $output Root directory for output folder
      */
     static protected function _outputIndex(\Twig_Environment $twig, array $packages, array $projectClassesNamespaces, $output)
     {
         $template_index = $twig->load('index.html');
+        $template_index_packages = $twig->load('index_packages.html');
+        
+        
+        // create index navigation
         $html = $template_index->render(array(
                 'packages' => $packages,
                 'classmap' => $projectClassesNamespaces
             ));
 
         self::_writeToFile('index.html', $output, $html);
+        
+
+        // create index content (iframe content with list of packages)
+        $html = $template_index_packages->render(array(
+                'packages' => $packages
+            ));
+
+        self::_writeToFile('index_packages.html', $output, $html);
     }
     
     
@@ -168,7 +180,7 @@ class TemplateGenerator {
      * Create the doc files : packages + index
      *
      * @param JSObjects\Package[] $packages Array of packages to output
-     * @param JSObjects\Object[] $projectClassesNamespaces Array of classes of project (so that we are able to create links)
+     * @param JSObjects\JSObject[] $projectClassesNamespaces Array of classes of project (so that we are able to create links)
      * @param string $output Root directory for output folder
      * @param string $cache Cache folder
      */

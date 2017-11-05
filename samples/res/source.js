@@ -1,4 +1,20 @@
 /**
+ * Main sample package
+ *
+ * This is the long description for package
+ * - with enum value 1
+ * - and enum value 2
+ * 
+ * @package 'source.js' as title
+ */
+  
+
+
+
+
+
+
+/**
  * Class MyClass jsdoc
  *
  * This is a multiline comment

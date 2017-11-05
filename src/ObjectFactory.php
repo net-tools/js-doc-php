@@ -16,16 +16,18 @@ class ObjectFactory {
     /**
      * Create a JS object from a keyword
      * 
-     * @param JSObjects\Object $parent
+     * @param JSObjects\JSObject $parent
      * @param string $k
      * @param string $code
-     * @return JSObjects\Object
+     * @return JSObjects\JSObject
      */
     static public function fromKeyword($parent, $k, $code)
     {
         //['@class', '@function', '@method', '@param', '@return', '@property'];
         switch ( $k )
         {
+            case '@package': 
+                return new JSObjects\Package(null, trim($code));
             case '@class':
                 return new JSObjects\ClassObject(null, trim($code));
             case '@namespace':

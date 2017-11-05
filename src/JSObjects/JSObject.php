@@ -7,7 +7,7 @@ namespace Nettools\JsDocPhp\JSObjects;
 /**
  * Top-level object for javascript parser
  */
-class Object {
+class JSObject {
     
     /**
      * Name of object (method, property, class)
@@ -21,7 +21,7 @@ class Object {
     /** 
      * Reference to parent object
      * 
-     * @var Object
+     * @var JSObject
      */
     public $parent = null;
     
@@ -48,7 +48,7 @@ class Object {
     /** 
      * Constructor
      * 
-     * @param Object $parent
+     * @param JSObject $parent
      * @param string $name
      * @param string $description
      */
@@ -64,9 +64,9 @@ class Object {
     /**
      * Associate an object with another one
      *
-     * @param Object $obj
+     * @param JSObject $obj
      */
-    public function takeOwnership(Object $obj)
+    public function takeOwnership(JSObject $obj)
     {
         $obj->parent = $this;
     }
