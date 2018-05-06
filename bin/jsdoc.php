@@ -81,7 +81,15 @@ finally
     $i = 1;
     foreach ( $logger->logdata as $event )
     {
-        echo "[$i] " . strtoupper($event['level']) . ' ' . $event['message'] . "\n" . $event['docblock'] . "\n\n" . (count($event['context']) ? print_r($event['context'], true) . "\n" : '') . "\n\n";
+		$line = "[$i] " . strtoupper($event['level']) . ' ' . $event['message'];
+
+		if ( $event['docblock'] )
+			$line .= "\n" . $event['docblock'] . "\n\n";
+
+		if ( count($event['context']) )
+			$line .= print_r($event['context'], true) . "\n\n";
+
+		echo $line . '<br>-<br>';
         $i++;
     }
 }

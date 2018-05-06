@@ -178,7 +178,7 @@ class Parser {
             $keywords[$k] = [];
             
             
-            if ( preg_match_all("~\\* {$k}(.*)$~mU", $doc, $regs) )
+            if ( preg_match_all("~\\* {$k}(.*)$~mU", $doc, $regs) && $regs[1] && is_array($regs[1]) )
             {
                 foreach ( $regs[1] as $line )            // $regs[1] is an array of matching capturing parenthesis 
                 {
@@ -264,10 +264,14 @@ class Parser {
     public function parse($root, $file, \Psr\Log\LoggerInterface $log)
     {
         $package = null;
+		
+		// processing file
+		$log->info("Processing file '$file'");
         
         // read file
         $f = file_get_contents($root . $file);
     
+        
    
         // look for all first level comments (/** at beginning of line, some stuff and then [ ]*/ at beginning of line)
         // m : ^ match begin of lines inside the string ; without, they match only a beginning of string
@@ -275,8 +279,16 @@ class Parser {
         // U : ungreedy
         if ( preg_match_all('~^/\\*\\*.*^ \\*/~msU', $f, $regs) === FALSE )
             throw new Exceptions\Exception("Malformed docblock in '$file'");
-            
 
+        // we always have a $regs[0] value, which may be an empty array if no top-level docblock identified
+        if ( count($regs[0]) == 0 )
+        {
+            $log->warning("No valid docblock in '$file'");
+            if ( $this->isStrict() )
+                throw new Exceptions\Exception("No valid docblock in '$file'");            
+        }
+        
+                
         // look for all toplevel docblocks
         foreach ( $regs[0] as $docblock )
         {
@@ -308,7 +320,7 @@ class Parser {
                     $package->file = $file;
                 }
             
-            
+
             
             // handle classes and functions : the package takes their ownership
             if ( (get_class($doc) == JSObjects\ClassObject::class) || (get_class($doc) == JSObjects\Func::class) || (get_class($doc) == JSObjects\NamespaceObject::class) )
@@ -437,7 +449,6 @@ class Parser {
                     throw new Exceptions\ParserException("Class/namespace content cannot be extracted for this docblock", $docblock);
             }
         }
-        
         
         return $package;                    
     }

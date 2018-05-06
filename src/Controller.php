@@ -29,7 +29,11 @@ class Controller {
         // parse all files
         $ret = [];
         foreach ( $files->files as $f )
-            $ret[] = $parser->parse($files->root, $f, $log);
+        {
+            $r = $parser->parse($files->root, $f, $log);
+            if ( $r )
+                $ret[] = $r;
+        }
         
         
         TemplateGenerator::output($ret, $parser->projectClassesNamespaces, rtrim($output, '/') . '/', $cache);

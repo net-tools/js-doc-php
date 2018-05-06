@@ -90,7 +90,7 @@
 
         <ul class="level1">
         {% for package in packages %}
-            {% if not package.isEmpty() %}
+            {# {% if not package.isEmpty() %} #}
                 <li class="name type">
                     {{ macros.packageLink(package, 1) }}
                     <ul class="level2">
@@ -107,7 +107,7 @@
                         {% endfor %}
                     </ul>
                 </li>
-            {% endif %}
+            {# {% endif %} #}
         {% endfor %}
         </ul>
         <footer>Generated on {{ "now"|date('Y/m/d H:i:s') }}</footer>

@@ -1,7 +1,7 @@
-/*
+/**
  * Class MyClass jsdoc
  *
- * Here, we have omitted a star in the first line. The parser will throw a warning (or error if strict mode)
+ * Here, we have omitted the @class keyword. The parser will throw an error
  *
  * @param string param1 This is the first parameter
  * @param bool param2 This is the second parameter

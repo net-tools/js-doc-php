@@ -160,6 +160,7 @@ div.packageClass span.name,
 div.packageNamespace span.name {
     width: 20%;
     display: inline-block;
+	min-width: 20em;
 }
 
 

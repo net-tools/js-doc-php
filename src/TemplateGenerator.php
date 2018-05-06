@@ -105,8 +105,8 @@ class TemplateGenerator {
         // generate packages
         foreach ( $packages as $p )
         {
-            if ( $p->isEmpty() )
-                continue;
+            /*if ( $p->isEmpty() )
+                continue;*/
             
             // output package
             $html = $template_package->render(array(
