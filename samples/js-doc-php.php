@@ -48,7 +48,7 @@ else
             {
                 // generate ok with strict mode
                 case 'gen_ok': 
-                    $package = Controller::process(
+                    Controller::process(
                             new Files(rtrim(__DIR__,'/') . '/res/', ['source.js', 'subfolder/simple.js']), 
                             K_OUTPUT_FOLDER, 
                             K_CACHE_FOLDER, 
@@ -63,7 +63,7 @@ else
 
                 // samples for errors
                 case 'gen_ko':
-                    $package = Controller::process(
+                    Controller::process(
                             new Files(rtrim(__DIR__,'/') . '/res/', ['source-ko-' . $_REQUEST['file'] . '.js']), 
                             K_OUTPUT_FOLDER, 
                             K_CACHE_FOLDER, 

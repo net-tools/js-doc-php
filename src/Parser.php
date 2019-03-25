@@ -174,7 +174,7 @@ class Parser {
         // look for keywords
         foreach ( self::KEYWORDS as $k )
         {
-            unset($regs);
+            $regs = [];
             $keywords[$k] = [];
             
             
@@ -277,6 +277,7 @@ class Parser {
         // m : ^ match begin of lines inside the string ; without, they match only a beginning of string
         // s : . matches newlines
         // U : ungreedy
+        $regs = [];
         if ( preg_match_all('~^/\\*\\*.*^ \\*/~msU', $f, $regs) === FALSE )
             throw new Exceptions\Exception("Malformed docblock in '$file'");
 
@@ -338,7 +339,7 @@ class Parser {
                 $doc->name = substr(strrchr($fullname, '.'), 1);
                 
                 
-                if ( is_int($p = strpos($fullname, '.prototype')) )
+                if ( is_int(strpos($fullname, '.prototype')) )
                 {
                     $doc->staticMethod = false;
                     $doc->prototypeMethod = true;
