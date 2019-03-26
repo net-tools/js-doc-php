@@ -40,9 +40,9 @@ try
         The config file parameter is mandatory.
 
         Correct usage is :
-            <?php echo $argv[0]; ?> <path_to_config_file>
+            <?php echo $argv[0]; ?> &lt;path_to_config_file&gt;
 
-            <path_to_config_file> : Full path to config file to read
+            &lt;path_to_config_file&gt; : Full path to config file to read
 
             With options --help, -help, -h,
             and -?, this help screen is displayed
