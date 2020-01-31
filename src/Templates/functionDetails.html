@@ -2,12 +2,12 @@
 
 <a name="{{ fun.name }}"></a>
 <div class="functionDetails"> 
-    <div class="codeline">{% spaceless %}
+    <div class="codeline">{% apply spaceless %}
         <span class="type">{% if fun.returnValue %}{{macros.typelink(fun.returnValue.type, classmap)}}{% endif %}</span>
         {% if attribute(fun, 'prototypeMethod') is defined %}{% if fun.prototypeMethod %}<span class="prototypeMethod">prototype</span>{% endif %}{% endif %}
         {% if attribute(fun, 'staticMethod') is defined %}{% if fun.staticMethod %}<span class="staticMethod">static</span>{% endif %}{% endif %}
         <span class="name">{{ fun.name }}</span>
-        {% endspaceless %} (
+        {% endapply %} (
         
     {% set params = [] %}
     {% for p in fun.parameters %}
