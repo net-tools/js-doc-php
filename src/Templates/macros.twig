@@ -2,7 +2,7 @@
 
 
 
-{% macro typelink(type, classmap) %}{% spaceless %}
+{% macro typelink(type, classmap) %}{% apply spaceless %}
 
     {% if attribute(classmap, type) is defined %}
         {% import _self as macros %}
@@ -11,44 +11,44 @@
         {{ type }}
     {% endif %}
 
-{% endspaceless %}{% endmacro %}
+{% endapply %}{% endmacro %}
 
 
 
-{% macro namespaceLink(ns, iframe) %}{% spaceless %}
+{% macro namespaceLink(ns, iframe) %}{% apply spaceless %}
     {% if iframe %}
         <a href="ns-{{ ns|e('html') }}.html" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ ns }}</a>
     {% else %}
         <a href="ns-{{ ns }}.html" class="outsideLink">{{ ns }}</a>
     {% endif %}
-{% endspaceless %}{% endmacro %}
+{% endapply %}{% endmacro %}
 
 
 
-{% macro classLink(class, iframe) %}{% spaceless %}
+{% macro classLink(class, iframe) %}{% apply spaceless %}
     {% if iframe %}
         <a href="class-{{ class|e('html') }}.html" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ class }}</a>
     {% else %}
         <a href="class-{{ class }}.html" class="outsideLink">{{ class }}</a>
     {% endif %}
-{% endspaceless %}{% endmacro %}
+{% endapply %}{% endmacro %}
 
 
 
-{% macro packageLink(package, iframe) %}{% spaceless %}
+{% macro packageLink(package, iframe) %}{% apply spaceless %}
     {% if iframe %}
         <a href="{{ package.file|replace({'/':'--'})|e('html') }}.html" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ package.name }}</a>
     {% else %}
         <a href="{{ package.file|replace({'/':'--'}) }}.html" class="outsideLink">{{ package.name }}</a>
     {% endif %}
-{% endspaceless %}{% endmacro %}
+{% endapply %}{% endmacro %}
 
 
 
-{% macro packageFunLink(fun, iframe) %}{% spaceless %}
+{% macro packageFunLink(fun, iframe) %}{% apply spaceless %}
     {% if iframe %}
         <a href="{{ fun.parent.file|replace({'/':'--'})|e('html') }}.html#{{ fun.name }}" onclick="jsdoc.open(this.href); return false;" class="outsideLink">{{ fun.name }}</a>
     {% else %}
         <a href="{{ fun.parent.file|replace({'/':'--'}) }}.html#{{ fun.name }}" class="outsideLink">{{ fun.name }}</a>
     {% endif %}
-{% endspaceless %}{% endmacro %}
+{% endapply %}{% endmacro %}
