@@ -78,12 +78,12 @@ class TemplateGenerator {
     /**
      * Convert the packages doc tree to html files
      *
-     * @param \Twig_Environment $twig Twig instance
+     * @param \Twig\Environment $twig Twig instance
      * @param JSObjects\Package[] $packages Array of packages to output
      * @param JSObjects\JSObject[] $projectClassesNamespaces Array of classes of project (so that we are able to create links)
      * @param string $output Root directory for output folder
      */
-    static protected function _outputFiles(\Twig_Environment $twig, array $packages, array $projectClassesNamespaces, $output)
+    static protected function _outputFiles(\Twig\Environment $twig, array $packages, array $projectClassesNamespaces, $output)
     {
         $template_package = $twig->load('packageFile.html');
         $template_class = $twig->load('classFile.html');
@@ -146,12 +146,12 @@ class TemplateGenerator {
     /**
      * Create index
      *
-     * @param \Twig_Environment $twig Twig instance
+     * @param \Twig\Environment $twig Twig instance
      * @param JSObjects\Package[] $packages Array of packages to output
      * @param JSObjects\JSObject[] $projectClassesNamespaces Array of classes of project (so that we are able to create links)
      * @param string $output Root directory for output folder
      */
-    static protected function _outputIndex(\Twig_Environment $twig, array $packages, array $projectClassesNamespaces, $output)
+    static protected function _outputIndex(\Twig\Environment $twig, array $packages, array $projectClassesNamespaces, $output)
     {
         $template_index = $twig->load('index.html');
         $template_index_packages = $twig->load('index_packages.html');
@@ -186,8 +186,8 @@ class TemplateGenerator {
      */
     static public function output(array $packages, array $projectClassesNamespaces, $output, $cache)
     {
-        $loader = new \Twig_Loader_Filesystem(rtrim(__DIR__,'/') . '/Templates/');
-        $twig = new \Twig_Environment($loader, array(
+        $loader = new \Twig\Loader\FilesystemLoader(rtrim(__DIR__,'/') . '/Templates/');
+        $twig = new \Twig\Environment($loader, array(
             'cache' => false,//$cache,
             'strict_variables' => true,
             'auto_reload'=>true/*,
